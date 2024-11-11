@@ -6,6 +6,7 @@ import com.google.common.base.Preconditions;
 import com.google.common.collect.Lists;
 import com.mohistmc.forge.ForgeInjectBukkit;
 import com.mojang.datafixers.util.Either;
+import java.util.concurrent.atomic.AtomicBoolean;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.protocol.game.ServerboundContainerClosePacket;
@@ -836,10 +837,11 @@ public class CraftEventFactory {
     }
 
     public static BlockPos sourceBlockOverride = null; // SPIGOT-7068: Add source block override, not the most elegant way but better than passing down a BlockPosition up to five methods deep.
+    public static AtomicBoolean fixBlockSpreadMixin = new AtomicBoolean(true);
     public static boolean handleBlockSpreadEvent(LevelAccessor world, BlockPos source, BlockPos target, net.minecraft.world.level.block.state.BlockState block, int flag) {
         // Suppress during worldgen
         if (!(world instanceof Level)) {
-            world.setBlock(target, block, flag);
+            // world.setBlock(target, block, flag); // Mohist move to FireBlock
             return true;
         }
 
@@ -850,7 +852,9 @@ public class CraftEventFactory {
         Bukkit.getPluginManager().callEvent(event);
 
         if (!event.isCancelled()) {
-            state.update(true);
+           if (fixBlockSpreadMixin.getAndSet(true)) {
+               state.update(true);
+           }
         }
         return !event.isCancelled();
     }
@@ -1272,7 +1276,7 @@ public class CraftEventFactory {
         // Paper start
         return callInventoryOpenEventWithTitle(player, container).getSecond();
     }
-    public static com.mojang.datafixers.util.Pair<net.kyori.adventure.text.@org.jetbrains.annotations.Nullable Component, @org.jetbrains.annotations.Nullable AbstractContainerMenu> callInventoryOpenEventWithTitle(ServerPlayer player, AbstractContainerMenu container) {
+    public static com.mojang.datafixers.util.Pair<net.kyori.adventure.text.Component, @org.jetbrains.annotations.Nullable AbstractContainerMenu> callInventoryOpenEventWithTitle(ServerPlayer player, AbstractContainerMenu container) {
         return CraftEventFactory.callInventoryOpenEventWithTitle(player, container, false);
         // Paper end
     }
@@ -1283,7 +1287,7 @@ public class CraftEventFactory {
         // Paper start
         return callInventoryOpenEventWithTitle(player, container, cancelled).getSecond();
     }
-    public static com.mojang.datafixers.util.Pair<net.kyori.adventure.text.@org.jetbrains.annotations.Nullable Component, @org.jetbrains.annotations.Nullable AbstractContainerMenu> callInventoryOpenEventWithTitle(ServerPlayer player, AbstractContainerMenu container, boolean cancelled) {
+    public static com.mojang.datafixers.util.Pair<net.kyori.adventure.text.Component, @org.jetbrains.annotations.Nullable AbstractContainerMenu> callInventoryOpenEventWithTitle(ServerPlayer player, AbstractContainerMenu container, boolean cancelled) {
         // Paper end
         if (player.containerMenu != player.inventoryMenu && !alreadyProcessed) { // fire INVENTORY_CLOSE if one already open
             player.connection.handleContainerClose(new ServerboundContainerClosePacket(player.containerMenu.containerId));

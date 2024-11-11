@@ -282,13 +282,15 @@
           return p_214999_.m_129783_().m_8895_();
        });
        this.f_8547_.m_255415_().m_254958_();
-@@ -240,6 +_,10 @@
+@@ -240,6 +_,12 @@
              return new RandomSequences(i);
           }, "random_sequences");
        });
 +      this.world = new CraftWorld(this, generator, biomeProvider, environment);
 +      this.getCraftServer().addWorld(this.getWorld()); // CraftBukkit
-+      K.setWorld(this);
++      if (K != null) {
++         K.setWorld(this);
++      }
 +      this.initCapabilities();
     }
  
@@ -788,7 +790,7 @@
     @Nullable
     public BlockPos m_215011_(TagKey<Structure> p_215012_, BlockPos p_215013_, int p_215014_, boolean p_215015_) {
 -      if (!this.f_8548_.m_129910_().m_246337_().m_247749_()) {
-+      if (!this.K.m_246337_().m_247749_()) {
++      if (this.K != null ? !this.K.m_246337_().m_247749_() : !this.f_8548_.m_129910_().m_246337_().m_247749_()) {
           return null;
        } else {
 -         Optional<HolderSet.Named<Structure>> optional = this.m_9598_().m_175515_(Registries.f_256944_).m_203431_(p_215012_);
@@ -866,12 +868,12 @@
  
     public boolean m_8584_() {
 -      return this.f_8548_.m_129910_().m_5961_();
-+      return this.K.m_5961_(); // CraftBukkit
++      return this.K == null ?  this.f_8548_.m_129910_().m_5961_() : this.K.m_5961_(); // CraftBukkit // Mohist
     }
  
     public long m_7328_() {
 -      return this.f_8548_.m_129910_().m_246337_().m_245499_();
-+      return this.K.m_246337_().m_245499_(); // CraftBukkit
++      return this.K == null ?  this.f_8548_.m_129910_().m_246337_().m_245499_() : this.K.m_246337_().m_245499_(); // CraftBukkit // Mohist
     }
  
     @Nullable

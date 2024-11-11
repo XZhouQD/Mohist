@@ -145,7 +145,7 @@
              BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos();
  
              for(int l = -1; l <= 1; ++l) {
-@@ -189,7 +_,14 @@
+@@ -189,7 +_,17 @@
  
                             if (i2 > 0 && p_221163_.m_188503_(k1) <= i2 && (!p_221161_.m_46471_() || !this.m_53428_(p_221161_, blockpos$mutableblockpos))) {
                                int j2 = Math.min(15, i + p_221163_.m_188503_(5) / 4);
@@ -155,7 +155,10 @@
 +                                 if (CraftEventFactory.callBlockIgniteEvent(p_221161_, blockpos$mutableblockpos, p_221162_).isCancelled()) {
 +                                    continue;
 +                                 }
-+                                 CraftEventFactory.handleBlockSpreadEvent(p_221161_, p_221162_, blockpos$mutableblockpos, this.m_53437_(p_221161_, blockpos$mutableblockpos, j2), 3); // CraftBukkit
++                                 CraftEventFactory.fixBlockSpreadMixin.set(false);
++                                 if (CraftEventFactory.handleBlockSpreadEvent(p_221161_, p_221162_, blockpos$mutableblockpos, this.m_53437_(p_221161_, blockpos$mutableblockpos, j2), 3)) {
++                                    p_221161_.m_7731_(blockpos$mutableblockpos, this.m_53437_(p_221161_, blockpos$mutableblockpos, j2), 3);
++                                 }
 +                              }
 +                              // CraftBukkit end
                             }

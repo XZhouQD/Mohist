@@ -145,7 +145,7 @@
        this.f_46442_ = p_270739_;
 +      // CraftBukkit Ticks things
 +      for (SpawnCategory spawnCategory : SpawnCategory.values()) {
-+         if (CraftSpawnCategory.isValidForLimits(spawnCategory)) {
++         if (CraftSpawnCategory.isValidForLimits(spawnCategory) && getCraftServer() != null) {
 +            this.ticksPerSpawnCategory.put(spawnCategory, (long) this.getCraftServer().getTicksPerSpawns(spawnCategory));
 +         }
 +      }
