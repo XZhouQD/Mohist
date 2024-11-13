@@ -24,6 +24,7 @@ import com.mohistmc.config.MohistConfigUtil;
 import com.mohistmc.feature.AutoDeleteMods;
 import com.mohistmc.feature.CustomLibraries;
 import com.mohistmc.feature.DefaultLibraries;
+import com.mohistmc.feature.ExceptionHandler;
 import com.mohistmc.i18n.i18n;
 import com.mohistmc.tools.JarTool;
 import com.mohistmc.tools.Logo;
@@ -56,6 +57,9 @@ public class MohistMCStart {
         DataParser.parseLaunchArgs();
         MohistConfigUtil.init();
         MohistConfigUtil.i18n();
+        if (i18n.isCN()) {
+            Thread.setDefaultUncaughtExceptionHandler(new ExceptionHandler());
+        }
         if (MohistConfigUtil.INSTALLATIONFINISHED() && MohistConfigUtil.aBoolean("mohist.show_logo", true)) {
             System.out.printf("%n%s%n%s - %s, Java(%s) %s PID: %s%n",
                     Logo.asMohist(),
