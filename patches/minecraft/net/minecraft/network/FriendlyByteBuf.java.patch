@@ -9,6 +9,17 @@
     private static final int f_178335_ = 5;
     private static final int f_178336_ = 10;
     public static final int f_178337_ = 2097152;
+@@ -506,6 +_,10 @@
+       }
+    }
+ 
++   public FriendlyByteBuf writeComponent(final net.md_5.bungee.api.chat.BaseComponent[] component) {
++      return this.m_130072_(net.md_5.bungee.chat.ComponentSerializer.toString(component), 262144);
++   }
++
+    public FriendlyByteBuf m_130083_(Component p_130084_) {
+       return this.m_130072_(Component.Serializer.m_130703_(p_130084_), 262144);
+    }
 @@ -622,6 +_,15 @@
     }
  

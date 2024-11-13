@@ -290,6 +290,30 @@ public class CraftPlayer extends CraftHumanEntity implements Player {
         }
     }
 
+    // Paper start
+    @Override
+    @Deprecated
+    public void sendActionBar(BaseComponent[] message) {
+        if (getHandle().connection == null) return;
+        net.minecraft.network.protocol.game.ClientboundSetActionBarTextPacket packet = new net.minecraft.network.protocol.game.ClientboundSetActionBarTextPacket((net.minecraft.network.chat.Component) null);
+        packet.components = message;
+        getHandle().connection.send(packet);
+    }
+
+    @Override
+    @Deprecated
+    public void sendActionBar(String message) {
+        if (getHandle().connection == null || message == null || message.isEmpty()) return;
+        getHandle().connection.send(new net.minecraft.network.protocol.game.ClientboundSetActionBarTextPacket(CraftChatMessage.fromStringOrNull(message)));
+    }
+
+    @Override
+    @Deprecated
+    public void sendActionBar(char alternateChar, String message) {
+        if (message == null || message.isEmpty()) return;
+        sendActionBar(org.bukkit.ChatColor.translateAlternateColorCodes(alternateChar, message));
+    }
+
     @Override
     public String getDisplayName() {
         return getHandle().displayName;
