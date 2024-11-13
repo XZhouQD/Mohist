@@ -1,5 +1,13 @@
 --- a/net/minecraft/world/level/block/LayeredCauldronBlock.java
 +++ b/net/minecraft/world/level/block/LayeredCauldronBlock.java
+@@ -4,6 +_,7 @@
+ import java.util.function.Predicate;
+ import net.minecraft.core.BlockPos;
+ import net.minecraft.core.cauldron.CauldronInteraction;
++import net.minecraft.server.level.ServerLevel;
+ import net.minecraft.world.entity.Entity;
+ import net.minecraft.world.item.Item;
+ import net.minecraft.world.level.Level;
 @@ -16,6 +_,9 @@
  import net.minecraft.world.level.gameevent.GameEvent;
  import net.minecraft.world.level.material.Fluid;
@@ -27,7 +35,7 @@
        }
  
     }
-@@ -64,17 +_,39 @@
+@@ -64,17 +_,44 @@
     }
  
     public static void m_153559_(BlockState p_153560_, Level p_153561_, BlockPos p_153562_) {
@@ -48,18 +56,23 @@
 +
 +   // CraftBukkit start
 +   public static boolean changeLevel(BlockState iblockdata, Level world, BlockPos blockposition, BlockState newBlock, Entity entity, CauldronLevelChangeEvent.ChangeReason reason) {
-+      CraftBlockState newState = CraftBlockStates.getBlockState(world, blockposition);
-+      newState.setData(newBlock);
++      if (world instanceof ServerLevel serverLevel && world.getClass() == ServerLevel.class) {
++         CraftBlockState newState = CraftBlockStates.getBlockState(serverLevel, blockposition);
++         newState.setData(newBlock);
 +
-+      CauldronLevelChangeEvent event = new CauldronLevelChangeEvent(
-+              world.getWorld().getBlockAt(blockposition.m_123341_(), blockposition.m_123342_(), blockposition.m_123343_()),
-+              (entity == null) ? null : entity.getBukkitEntity(), reason, newState
-+      );
-+      world.getCraftServer().getPluginManager().callEvent(event);
-+      if (event.isCancelled()) {
-+         return false;
++         CauldronLevelChangeEvent event = new CauldronLevelChangeEvent(
++                 world.getWorld().getBlockAt(blockposition.m_123341_(), blockposition.m_123342_(), blockposition.m_123343_()),
++                 (entity == null) ? null : entity.getBukkitEntity(), reason, newState
++         );
++         world.getCraftServer().getPluginManager().callEvent(event);
++         if (event.isCancelled()) {
++            return false;
++         }
++         newState.update(true);
++      } else {
++         world.m_46597_(blockposition, newBlock);
 +      }
-+      newState.update(true);
++
 +      world.m_220407_(GameEvent.f_157792_, blockposition, GameEvent.Context.m_223722_(newBlock));
 +      return true;
 +   }

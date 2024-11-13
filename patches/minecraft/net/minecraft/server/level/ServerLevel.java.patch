@@ -189,7 +189,7 @@
  
  public class ServerLevel extends Level implements WorldGenLevel {
     public static final BlockPos f_8562_ = new BlockPos(100, 50, 0);
-@@ -188,24 +_,87 @@
+@@ -188,24 +_,88 @@
     private final List<CustomSpawner> f_8558_;
     @Nullable
     private EndDragonFight f_8559_;
@@ -250,9 +250,10 @@
        this.f_8558_ = p_215008_;
        this.f_8549_ = p_215002_;
        ChunkGenerator chunkgenerator = p_215004_.f_63976_();
++      long i = p_214999_.m_129910_().m_246337_().m_245499_(); // Mohist
 +      // CraftBukkit start
 +      if (biomeProvider != null) {
-+         WorldInfo worldInfo = new CraftWorldInfo(K, p_215001_, environment, p_215004_.f_63975_().m_203334_());
++         WorldInfo worldInfo = new CraftWorldInfo(name, uuid, environment, i, p_215004_.f_63975_().m_203334_());
 +         BiomeSource worldChunkManager = new CustomWorldChunkManager(worldInfo, biomeProvider, f_8548_.m_206579_().m_175515_(Registries.f_256952_));
 +         if (chunkgenerator instanceof NoiseBasedChunkGenerator cga) {
 +            chunkgenerator = new NoiseBasedChunkGenerator(worldChunkManager, cga.f_64318_);
@@ -282,6 +283,15 @@
           return p_214999_.m_129783_().m_8895_();
        });
        this.f_8547_.m_255415_().m_254958_();
+@@ -222,7 +_,7 @@
+          p_215002_.m_5458_(p_214999_.m_130008_());
+       }
+ 
+-      long i = p_214999_.m_129910_().m_246337_().m_245499_();
++
+       this.f_196556_ = new StructureCheck(this.f_8547_.m_196555_(), this.m_9598_(), p_214999_.m_236738_(), p_215003_, chunkgenerator, this.f_8547_.m_214994_(), this, chunkgenerator.m_62218_(), i, datafixer);
+       this.f_214997_ = new StructureManager(this, p_214999_.m_129910_().m_246337_(), this.f_196556_);
+       if (this.m_46472_() == Level.f_46430_ && this.m_204156_().m_203565_(BuiltinDimensionTypes.f_223540_)) {
 @@ -240,6 +_,12 @@
              return new RandomSequences(i);
           }, "random_sequences");

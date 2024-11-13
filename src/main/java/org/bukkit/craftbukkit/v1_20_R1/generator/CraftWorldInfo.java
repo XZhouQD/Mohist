@@ -29,6 +29,15 @@ public class CraftWorldInfo implements WorldInfo {
         this.maxHeight = dimensionManager.minY() + dimensionManager.height();
     }
 
+    public CraftWorldInfo(String name, UUID uuid, World.Environment environment, long seed, DimensionType dimensionManager) {
+        this.name = name;
+        this.uuid = uuid;
+        this.environment = environment;
+        this.seed = seed;
+        this.minHeight = dimensionManager.minY();
+        this.maxHeight = dimensionManager.minY() + dimensionManager.height();
+    }
+
     public CraftWorldInfo(String name, UUID uuid, World.Environment environment, long seed, int minHeight, int maxHeight) {
         this.name = name;
         this.uuid = uuid;
