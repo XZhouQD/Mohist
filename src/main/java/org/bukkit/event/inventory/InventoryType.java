@@ -163,7 +163,8 @@ public enum InventoryType {
      *
      * @return the inventory's default title
      */
-    public net.kyori.adventure.text.@NotNull Component defaultTitle() {
+    @NotNull
+    public net.kyori.adventure.text.Component defaultTitle() {
         return defaultTitleComponent;
     }
     // Paper end

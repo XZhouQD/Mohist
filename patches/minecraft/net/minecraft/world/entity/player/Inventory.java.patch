@@ -151,3 +151,15 @@
              crashreportcategory.m_128159_("Item ID", Item.m_41393_(p_36042_.m_41720_()));
              crashreportcategory.m_128159_("Item data", p_36042_.m_41773_());
              crashreportcategory.m_128165_("Item name", () -> {
+@@ -474,6 +_,11 @@
+ 
+          p_35991_ -= nonnulllist.size();
+       }
++      // Mohist start
++      if (p_35991_ < 0) {
++         return ItemStack.f_41583_;
++      }
++      // Mohist end
+ 
+       return list == null ? ItemStack.f_41583_ : list.get(p_35991_);
+    }

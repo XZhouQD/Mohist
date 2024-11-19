@@ -135,7 +135,8 @@ public class PlayerDeathEvent extends EntityDeathEvent {
      *
      * @param deathMessage Message to appear to other players on the server.
      */
-    public void deathMessage(net.kyori.adventure.text.@Nullable Component deathMessage) {
+    @Nullable
+    public void deathMessage(net.kyori.adventure.text.Component deathMessage) {
         this.deathMessage = null;
         this.adventure$deathMessage = deathMessage;
     }
@@ -145,7 +146,8 @@ public class PlayerDeathEvent extends EntityDeathEvent {
      *
      * @return Message to appear to other players on the server.
      */
-    public net.kyori.adventure.text.@Nullable Component deathMessage() {
+    @Nullable
+    public net.kyori.adventure.text.Component deathMessage() {
         return this.adventure$deathMessage;
     }
     // Paper end

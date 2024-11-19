@@ -156,6 +156,24 @@
        }
  
     }
+@@ -261,10 +_,14 @@
+    private LongSet m_157587_() {
+       LongSet longset = this.f_157495_.m_156857_();
+ 
+-      for(Long2ObjectMap.Entry<PersistentEntitySectionManager.ChunkLoadStatus> entry : Long2ObjectMaps.fastIterable(this.f_157498_)) {
+-         if (entry.getValue() == PersistentEntitySectionManager.ChunkLoadStatus.LOADED) {
+-            longset.add(entry.getLongKey());
++      try {
++         for (Long2ObjectMap.Entry<PersistentEntitySectionManager.ChunkLoadStatus> entry : Long2ObjectMaps.fastIterable(this.f_157498_)) {
++            if (entry.getValue() == PersistentEntitySectionManager.ChunkLoadStatus.LOADED) {
++               longset.add(entry.getLongKey());
++            }
+          }
++      } catch (Exception e) {
++         return longset;
+       }
+ 
+       return longset;
 @@ -304,6 +_,15 @@
        this.f_157493_.close();
     }

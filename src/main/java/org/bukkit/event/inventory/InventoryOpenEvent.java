@@ -5,6 +5,7 @@ import org.bukkit.event.Cancellable;
 import org.bukkit.event.HandlerList;
 import org.bukkit.inventory.InventoryView;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * Represents a player related inventory event
@@ -64,7 +65,8 @@ public class InventoryOpenEvent extends InventoryEvent implements Cancellable {
      *
      * @return the title override or null
      */
-    public net.kyori.adventure.text.@org.jetbrains.annotations.Nullable Component titleOverride() {
+    @org.jetbrains.annotations.Nullable
+    public net.kyori.adventure.text.Component titleOverride() {
         return this.titleOverride;
     }
 
@@ -79,7 +81,7 @@ public class InventoryOpenEvent extends InventoryEvent implements Cancellable {
      *
      * @param titleOverride the title override or null
      */
-    public void titleOverride(net.kyori.adventure.text.@org.jetbrains.annotations.Nullable Component titleOverride) {
+    public void titleOverride(@Nullable net.kyori.adventure.text.Component titleOverride) {
         this.titleOverride = titleOverride;
     }
     // Paper end
