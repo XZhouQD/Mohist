@@ -2,6 +2,7 @@ package com.mohistmc.plugins.ban.bans;
 
 import com.mohistmc.MohistConfig;
 import com.mohistmc.api.ItemAPI;
+import com.mohistmc.api.PlayerAPI;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.UseOnContext;
 import org.bukkit.craftbukkit.v1_20_R1.inventory.CraftItemStack;
@@ -18,6 +19,7 @@ public class BanItem {
 
     public static boolean check(net.minecraft.world.entity.player.Player player, ItemStack itemStack) {
         if (player == null) return false;
+        if (player.getBukkitEntity().isOp()) return false;
         if (BanEnchantment.check(itemStack)) {
             player.containerMenu.sendAllDataToRemote();
             return true;
@@ -30,6 +32,7 @@ public class BanItem {
     }
 
     public static boolean check(net.minecraft.world.entity.player.Player player) {
+        if (player.getBukkitEntity().isOp()) return false;
         return check(player.getMainHandItem()) || check(player.getOffhandItem());
     }
 
