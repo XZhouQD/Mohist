@@ -16,6 +16,7 @@ plugins {
     id 'com.github.ben-manes.versions' version '0.46.0'
     id 'net.minecraftforge.gradleutils' version '[2.2,2.3)'
     id 'eclipse'
+    id 'idea'
     id 'de.undercouch.download' version '5.6.0'
     id 'net.minecraftforge.gradle.patcher' version '[6.0.16,6.2)' apply false
     id 'net.minecraftforge.gradle.mcp' version '[6.0.16,6.2)' apply false
@@ -35,12 +36,12 @@ ext {
     SPI_VERSION = '7.0.1'
     MERGETOOL_VERSION = '1.1.5'
     ACCESSTRANSFORMERS_VERSION = '8.0.4'
-    COREMODS_VERSION = '5.1.6'
+    COREMODS_VERSION = '5.2.1'
     EVENTBUS_VERSION = '6.0.5'
     MODLAUNCHER_VERSION = '10.0.9'
     SECUREJARHANDLER_VERSION = 'mohist-2.1.11'
     BOOTSTRAPLAUNCHER_VERSION = '1.1.2'
-    ASM_VERSION = '9.7'
+    ASM_VERSION = '9.7.1'
     INSTALLER_VERSION = '2.2.+'
     MIXIN_VERSION = '0.8.5'
     TERMINALCONSOLEAPPENDER_VERSION = '1.4.0'
@@ -207,7 +208,7 @@ def sharedDeps = {
     installer "org.jline:jline-terminal:${JLINE_VERSION}" // Dep of TerminalConsoleAppender
     installer "org.jline:jline-terminal-jansi:${JLINE_VERSION}" // Dep of TerminalConsoleAppender
     installer "org.spongepowered:mixin:${MIXIN_VERSION}"
-    installer 'org.openjdk.nashorn:nashorn-core:15.3'
+    installer 'org.openjdk.nashorn:nashorn-core:15.4'
     installer "net.minecraftforge:JarJarSelector:${JARJAR_VERSION}"
     installer "net.minecraftforge:JarJarMetadata:${JARJAR_VERSION}"
 
@@ -871,3 +872,11 @@ task setup() {  //These must be strings so that we can do lazy resolution. Else 
 }
 
 project.gradle.startParameter.excludedTaskNames.add(':clean:genPatches')
+
+idea {
+    module {
+        // IntelliJ IDEA does not do this by itself anymore...
+        downloadJavadoc = true
+        downloadSources = true
+    }
+}
