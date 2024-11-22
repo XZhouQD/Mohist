@@ -19,6 +19,18 @@
        }
  
        public TagKey<T> m_205839_() {
+@@ -152,6 +_,11 @@
+       }
+ 
+       public boolean m_203333_(Holder<T> p_205834_) {
++         // Mohist start - fix npe
++         if (p_205834_ == null) {
++            return false;
++         }
++         // Mohist end
+          return p_205834_.m_203656_(this.f_205829_);
+       }
+ 
 @@ -161,6 +_,11 @@
  
        public boolean m_207277_(HolderOwner<T> p_256542_) {
