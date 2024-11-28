@@ -24,7 +24,7 @@
        SynchedEntityData.DataItem<T> dataitem = this.m_135379_(p_276368_);
        if (p_276370_ || ObjectUtils.notEqual(p_276363_, dataitem.m_135403_())) {
           dataitem.m_135397_(p_276363_);
-@@ -209,6 +_,26 @@
+@@ -209,6 +_,57 @@
     public boolean m_135388_() {
        return this.f_135345_.isEmpty();
     }
@@ -47,7 +47,38 @@
 +         }
 +      }
 +   }
-+    // CraftBukkit end
++   // CraftBukkit end
++   // Paper start
++   // We need to pack all as we cannot rely on "non default values" or "dirty" ones.
++   // Because these values can possibly be desynced on the client.
++   @Nullable
++   private List<SynchedEntityData.DataValue<?>> packAll() {
++      if (this.m_135388_()) {
++         return null;
++      }
++
++      List<SynchedEntityData.DataValue<?>> list = new ArrayList<>();
++      for (DataItem<?> dataItem : this.f_135345_.values()) {
++         list.add(dataItem.m_253123_());
++      }
++
++      return list;
++   }
++
++   // This method allows you to specifically resend certain data accessor keys to the client
++   public void resendPossiblyDesyncedDataValues(List<EntityDataAccessor<?>> keys, ServerPlayer to) {
++      if (!to.getBukkitEntity().canSee(this.f_135344_.getBukkitEntity())) {
++         return;
++      }
++      List<SynchedEntityData.DataValue<?>> values = new ArrayList<>(keys.size());
++      for (EntityDataAccessor<?> key : keys) {
++         SynchedEntityData.DataItem<?> synchedValue = this.m_135379_(key);
++         values.add(synchedValue.m_253123_());
++      }
++
++      to.f_8906_.m_9829_(new ClientboundSetEntityDataPacket(this.f_135344_.m_19879_(), values));
++   }
++   // Paper end
  
     public static class DataItem<T> {
        final EntityDataAccessor<T> f_135390_;

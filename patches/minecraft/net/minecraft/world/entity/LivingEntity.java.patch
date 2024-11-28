@@ -1709,8 +1709,16 @@
  
     public float m_6080_() {
        return this.f_20885_;
-@@ -2821,23 +_,28 @@
+@@ -2819,25 +_,36 @@
+       return (this.f_19804_.m_135370_(f_20909_) & 2) > 0 ? InteractionHand.OFF_HAND : InteractionHand.MAIN_HAND;
+    }
  
++   // Paper start
++   public void resyncUsingItem(ServerPlayer serverPlayer) {
++      this.m_20088_().resendPossiblyDesyncedDataValues(java.util.List.of(f_20909_), serverPlayer);
++   }
++   // Paper end
++
     private void m_21329_() {
        if (this.m_6117_()) {
 -         if (ItemStack.m_41656_(this.m_21120_(this.m_7655_()), this.f_20935_)) {
