@@ -1,27 +1,65 @@
 --- a/net/minecraft/server/PlayerAdvancements.java
 +++ b/net/minecraft/server/PlayerAdvancements.java
-@@ -123,7 +_,11 @@
-             map.entrySet().stream().sorted(Entry.comparingByValue()).forEach((p_265663_) -> {
-                Advancement advancement = p_136007_.m_136041_(p_265663_.getKey());
-                if (advancement == null) {
+@@ -108,65 +_,14 @@
+    }
+ 
+    private void m_136006_(ServerAdvancementManager p_136007_) {
+-      if (Files.isRegularFile(this.f_263766_)) {
+-         try (JsonReader jsonreader = new JsonReader(Files.newBufferedReader(this.f_263766_, StandardCharsets.UTF_8))) {
+-            jsonreader.setLenient(false);
+-            Dynamic<JsonElement> dynamic = new Dynamic<>(JsonOps.INSTANCE, Streams.parse(jsonreader));
+-            int i = dynamic.get("DataVersion").asInt(1343);
+-            dynamic = dynamic.remove("DataVersion");
+-            dynamic = DataFixTypes.ADVANCEMENTS.m_264140_(this.f_135961_, dynamic, i);
+-            Map<ResourceLocation, AdvancementProgress> map = f_135959_.getAdapter(f_135960_).fromJsonTree(dynamic.getValue());
+-            if (map == null) {
+-               throw new JsonParseException("Found null for advancements");
+-            }
+-
+-            map.entrySet().stream().sorted(Entry.comparingByValue()).forEach((p_265663_) -> {
+-               Advancement advancement = p_136007_.m_136041_(p_265663_.getKey());
+-               if (advancement == null) {
 -                  f_135958_.warn("Ignored advancement '{}' in progress file {} - it doesn't exist anymore?", p_265663_.getKey(), this.f_263766_);
-+                  // CraftBukkit start
-+                  if (p_265663_.getKey().m_135827_().equals("minecraft")) {
-+                     f_135958_.warn("Ignored advancement '{}' in progress file {} - it doesn't exist anymore?", p_265663_.getKey(), this.f_263766_);
-+                  }
-+                  // CraftBukkit end
-                } else {
-                   this.m_135985_(advancement, p_265663_.getValue());
-                   this.f_135967_.add(advancement);
-@@ -142,6 +_,7 @@
+-               } else {
+-                  this.m_135985_(advancement, p_265663_.getValue());
+-                  this.f_135967_.add(advancement);
+-                  this.m_264423_(advancement);
+-               }
+-            });
+-         } catch (JsonParseException jsonparseexception) {
+-            f_135958_.error("Couldn't parse player advancements in {}", this.f_263766_, jsonparseexception);
+-         } catch (IOException ioexception) {
+-            f_135958_.error("Couldn't access player advancements in {}", this.f_263766_, ioexception);
+-         }
+-      }
+-
+-      this.m_136002_(p_136007_);
+-      this.m_135994_(p_136007_);
     }
  
     public void m_135991_() {
-+      if (org.spigotmc.SpigotConfig.disableAdvancementSaving) return; // Spigot
-       Map<ResourceLocation, AdvancementProgress> map = new LinkedHashMap<>();
- 
-       for(Map.Entry<Advancement, AdvancementProgress> entry : this.f_263740_.entrySet()) {
-@@ -167,6 +_,8 @@
+-      Map<ResourceLocation, AdvancementProgress> map = new LinkedHashMap<>();
+-
+-      for(Map.Entry<Advancement, AdvancementProgress> entry : this.f_263740_.entrySet()) {
+-         AdvancementProgress advancementprogress = entry.getValue();
+-         if (advancementprogress.m_8206_()) {
+-            map.put(entry.getKey().m_138327_(), advancementprogress);
+-         }
+-      }
+-
+-      JsonElement jsonelement = f_135959_.toJsonTree(map);
+-      jsonelement.getAsJsonObject().addProperty("DataVersion", SharedConstants.m_183709_().m_183476_().m_193006_());
+-
+-      try {
+-         FileUtil.m_257659_(this.f_263766_.getParent());
+-
+-         try (Writer writer = Files.newBufferedWriter(this.f_263766_, StandardCharsets.UTF_8)) {
+-            f_135959_.toJson(jsonelement, writer);
+-         }
+-      } catch (IOException ioexception) {
+-         f_135958_.error("Couldn't save player advancements to {}", this.f_263766_, ioexception);
+-      }
+-
     }
  
     public boolean m_135988_(Advancement p_135989_, String p_135990_) {

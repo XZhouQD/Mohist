@@ -1,5 +1,25 @@
 --- a/net/minecraft/world/entity/npc/WanderingTraderSpawner.java
 +++ b/net/minecraft/world/entity/npc/WanderingTraderSpawner.java
+@@ -51,6 +_,9 @@
+    }
+ 
+    public int m_7995_(ServerLevel p_35922_, boolean p_35923_, boolean p_35924_) {
++      if (true) {
++         return 0;
++      }
+       if (!p_35922_.m_46469_().m_46207_(GameRules.f_46125_)) {
+          return 0;
+       } else if (--this.f_35910_ > 0) {
+@@ -83,6 +_,9 @@
+    }
+ 
+    private boolean m_35915_(ServerLevel p_35916_) {
++      if (true) {
++         return false;
++      }
+       Player player = p_35916_.m_8890_();
+       if (player == null) {
+          return true;
 @@ -103,7 +_,7 @@
              if (p_35916_.m_204166_(blockpos2).m_203656_(BiomeTags.f_215807_)) {
                 return false;
