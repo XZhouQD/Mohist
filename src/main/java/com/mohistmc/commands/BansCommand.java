@@ -108,9 +108,12 @@ public class BansCommand extends Command {
                     case "item" -> {
                         Warehouse wh = new Warehouse("§2Show bans item");
                         for (String s : MohistConfig.ban_item_materials) {
-                            wh.addItem(new GUIItem(new ItemStackFactory(ItemAPI.getMaterial(s))
-                                    .setDisplayName(s)
-                                    .toItemStack()));
+                            Material material = ItemAPI.getMaterial(s);
+                            if (!material.isEmpty()) {
+                                wh.addItem(new GUIItem(new ItemStackFactory(material)
+                                        .setDisplayName(s)
+                                        .toItemStack()));
+                            }
                         }
                         wh.openGUI(player);
                         return true;
