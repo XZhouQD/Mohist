@@ -3,6 +3,7 @@ package com.mohistmc.plugins;
 import com.mohistmc.MohistConfig;
 import com.mohistmc.plugins.back.BackCommands;
 import com.mohistmc.plugins.back.BackConfig;
+import com.mohistmc.plugins.ban.BanConfig;
 import com.mohistmc.plugins.ban.BanListener;
 import com.mohistmc.plugins.item.ItemsConfig;
 import com.mohistmc.plugins.pluginmanager.Control;
@@ -46,6 +47,7 @@ public class MohistPlugin {
         ItemsConfig.init();
         BackConfig.init();
         WarpsConfig.init();
+        BanConfig.init();
         File out = new File("libraries/com/mohistmc/cache", "libPath.txt");
         if (out.exists()) {
             String data = null;

@@ -11,8 +11,10 @@ import java.util.List;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.SpawnEggItem;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
+import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.inventory.Inventory;
 
@@ -55,6 +57,15 @@ public class BanListener {
                     }
                 }
                 BanUtils.saveToYaml(old, BanType.ENCHANTMENT);
+            } else if (openInventory.getBanType() == BanType.ITEM_MOSHOU) {
+                for (org.bukkit.inventory.ItemStack itemStack : event.getInventory().getContents()) {
+                    if (itemStack != null && itemStack.getType() != Material.AIR) {
+                        for (Player player : Bukkit.getOnlinePlayers()) {
+                            player.getInventory().remove(itemStack);
+                        }
+                       BanConfig.MOSHOU.addMoShou(itemStack.getType().name());
+                    }
+                }
             }
         }
     }

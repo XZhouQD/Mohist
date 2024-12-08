@@ -6,6 +6,7 @@ import com.mohistmc.api.ItemAPI;
 import com.mohistmc.api.gui.GUIItem;
 import com.mohistmc.api.gui.ItemStackFactory;
 import com.mohistmc.api.gui.Warehouse;
+import com.mohistmc.plugins.ban.BanConfig;
 import com.mohistmc.plugins.ban.BanListener;
 import com.mohistmc.plugins.ban.BanType;
 import com.mohistmc.plugins.ban.utils.BanSaveInventory;
@@ -29,11 +30,11 @@ import org.jetbrains.annotations.NotNull;
 public class BansCommand extends Command {
 
     private final List<String> params = Arrays.asList("add", "show");
-    private final List<String> params1 = Arrays.asList("item", "entity", "enchantment");
+    private final List<String> params1 = Arrays.asList("item", "item-moshou", "entity", "enchantment");
     public BansCommand(String name) {
         super(name);
         this.description = I18n.as("banscmd.description");
-        this.usageMessage = "/bans [add|show] [item|entity|enchantment]";
+        this.usageMessage = "/bans [add|show] [item|item-moshou|entity|enchantment]";
         this.setPermission("mohist.command.bans");
     }
 
@@ -66,6 +67,17 @@ public class BansCommand extends Command {
                             return false;
                         }
                         BanSaveInventory banSaveInventory = new BanSaveInventory(BanType.ITEM, "§4Add bans item");
+                        Inventory inventory = banSaveInventory.getInventory();
+                        player.openInventory(inventory);
+                        BanListener.openInventory = banSaveInventory;
+                        return true;
+                    }
+                    case "item-moshou" -> {
+                        if (!MohistConfig.ban_item_enable) {
+                            sender.sendMessage(ChatColor.RED + check);
+                            return false;
+                        }
+                        BanSaveInventory banSaveInventory = new BanSaveInventory(BanType.ITEM_MOSHOU, "§4Add bans moshou item");
                         Inventory inventory = banSaveInventory.getInventory();
                         player.openInventory(inventory);
                         BanListener.openInventory = banSaveInventory;
@@ -108,6 +120,19 @@ public class BansCommand extends Command {
                     case "item" -> {
                         Warehouse wh = new Warehouse("§2Show bans item");
                         for (String s : MohistConfig.ban_item_materials) {
+                            Material material = ItemAPI.getMaterial(s);
+                            if (!material.isEmpty()) {
+                                wh.addItem(new GUIItem(new ItemStackFactory(material)
+                                        .setDisplayName(s)
+                                        .toItemStack()));
+                            }
+                        }
+                        wh.openGUI(player);
+                        return true;
+                    }
+                    case "item-moshou" -> {
+                        Warehouse wh = new Warehouse("§2Show bans moshou item");
+                        for (String s : BanConfig.MOSHOU.getMoShouList()) {
                             Material material = ItemAPI.getMaterial(s);
                             if (!material.isEmpty()) {
                                 wh.addItem(new GUIItem(new ItemStackFactory(material)

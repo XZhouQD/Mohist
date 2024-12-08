@@ -7,6 +7,7 @@ package com.mohistmc.plugins.ban;
 public enum BanType {
 
     ITEM("ban.item.list"),
+    ITEM_MOSHOU(null),
     ENTITY("ban.entity.list"),
     ENCHANTMENT("ban.enchantment.list");
 
