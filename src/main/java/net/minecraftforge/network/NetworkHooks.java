@@ -215,6 +215,7 @@ public class NetworkHooks
             inventory.getType().setMods(true);
             c.bukkitView = new CraftInventoryView(player.getBukkitEntity(), inventory, c);
         }
+        c.containerOwner = player;
         c = CraftEventFactory.callInventoryOpenEvent(player, c);
         if (c == null) return;
         // Mohist end
