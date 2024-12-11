@@ -1,6 +1,6 @@
 --- a/net/minecraft/world/level/Level.java
 +++ b/net/minecraft/world/level/Level.java
-@@ -1,17 +_,23 @@
+@@ -1,17 +_,24 @@
  package net.minecraft.world.level;
  
  import com.google.common.collect.Lists;
@@ -14,6 +14,7 @@
  import java.util.Iterator;
  import java.util.List;
 +import java.util.Map;
++import java.util.Objects;
 +import java.util.concurrent.atomic.AtomicBoolean;
  import java.util.function.Consumer;
  import java.util.function.Predicate;
@@ -596,6 +597,15 @@
  
     public long m_183596_() {
        return (long)(this.f_186455_++);
+@@ -871,7 +_,7 @@
+    }
+ 
+    public DamageSources m_269111_() {
+-      return this.f_268497_;
++      return Objects.requireNonNullElseGet(this.f_268497_, () -> new DamageSources(m_7654_().m_206579_()));
+    }
+ 
+    public static enum ExplosionInteraction {
 @@ -880,4 +_,53 @@
        MOB,
        TNT;
