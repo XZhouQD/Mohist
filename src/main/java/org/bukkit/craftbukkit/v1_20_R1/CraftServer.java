@@ -1202,7 +1202,8 @@ public final class CraftServer implements Server {
     @Override
     public World getWorld(String name) {
         Validate.notNull(name, "Name cannot be null");
-        String worldname = name.contains("DIM") ? name :name.toLowerCase(java.util.Locale.ENGLISH);
+        name = name.startsWith("dim") ? name.toUpperCase() : name;
+        String worldname = name.startsWith("DIM") ? name : name.toLowerCase(java.util.Locale.ENGLISH);
         return worlds.get(worldname);
     }
 
