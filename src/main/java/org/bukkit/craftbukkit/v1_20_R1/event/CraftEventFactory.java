@@ -4,6 +4,7 @@ import com.google.common.base.Function;
 import com.google.common.base.Functions;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Lists;
+import com.mohistmc.bukkit.inventory.MohistModsInventory;
 import com.mohistmc.forge.ForgeInjectBukkit;
 import com.mojang.datafixers.util.Either;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -85,7 +86,9 @@ import org.bukkit.craftbukkit.v1_20_R1.entity.CraftLivingEntity;
 import org.bukkit.craftbukkit.v1_20_R1.entity.CraftPlayer;
 import org.bukkit.craftbukkit.v1_20_R1.entity.CraftRaider;
 import org.bukkit.craftbukkit.v1_20_R1.entity.CraftSpellcaster;
+import org.bukkit.craftbukkit.v1_20_R1.inventory.CraftInventory;
 import org.bukkit.craftbukkit.v1_20_R1.inventory.CraftInventoryCrafting;
+import org.bukkit.craftbukkit.v1_20_R1.inventory.CraftInventoryView;
 import org.bukkit.craftbukkit.v1_20_R1.inventory.CraftItemStack;
 import org.bukkit.craftbukkit.v1_20_R1.inventory.CraftMetaBook;
 import org.bukkit.craftbukkit.v1_20_R1.potion.CraftPotionUtil;
@@ -1359,9 +1362,15 @@ public class CraftEventFactory {
 
         CraftServer server = player.level.getCraftServer();
         CraftPlayer craftPlayer = player.getBukkitEntity();
+        container.containerOwner = player;
         player.containerMenu.transferTo(container, craftPlayer);
-
-        InventoryOpenEvent event = new InventoryOpenEvent(container.getBukkitView());
+        InventoryView bukkitView = container.getBukkitView();
+        if (bukkitView == null) {
+            org.bukkit.inventory.Inventory view = new CraftInventory(new MohistModsInventory(container, player));
+            view.getType().setMods(true);
+            bukkitView = new CraftInventoryView(player.getBukkitEntity(), view, container);
+        }
+        InventoryOpenEvent event = new InventoryOpenEvent(bukkitView);
         event.setCancelled(cancelled);
         server.getPluginManager().callEvent(event);
 

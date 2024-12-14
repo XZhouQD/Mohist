@@ -44,7 +44,7 @@
  import org.slf4j.Logger;
  
  public abstract class AbstractContainerMenu {
-@@ -60,6 +_,51 @@
+@@ -60,6 +_,54 @@
     private ContainerSynchronizer f_150397_;
     private boolean f_150398_;
  
@@ -66,6 +66,9 @@
 +   // Mohist end
 +   public void transferTo(AbstractContainerMenu other, CraftHumanEntity player) {
 +      InventoryView source = this.getBukkitView(), destination = other.getBukkitView();
++      if (destination == null) {
++         destination = getBukkitView();
++      }
 +      ((CraftInventory) source.getTopInventory()).getInventory().onClose(player);
 +      ((CraftInventory) source.getBottomInventory()).getInventory().onClose(player);
 +      ((CraftInventory) destination.getTopInventory()).getInventory().onOpen(player);

@@ -208,6 +208,7 @@ public class NetworkHooks
             throw new IllegalArgumentException(MohistMC.i18n.as("mohist.i18n.125", output.readableBytes()));
         }
         var c = containerSupplier.createMenu(openContainerId, player.getInventory(), player);
+        if (c == null) return;
         // Mohist start - Custom Container compatible with mods
         c.setTitle(containerSupplier.getDisplayName());
         if (c.getBukkitView() == null) {
@@ -217,7 +218,6 @@ public class NetworkHooks
         }
         c.containerOwner = player;
         c = CraftEventFactory.callInventoryOpenEvent(player, c);
-        if (c == null) return;
         // Mohist end
         MenuType<?> type = c.getType();
         PlayMessages.OpenContainer msg = new PlayMessages.OpenContainer(type, openContainerId, c.getTitle(), output);
