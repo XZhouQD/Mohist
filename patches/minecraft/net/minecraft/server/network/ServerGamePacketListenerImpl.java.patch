@@ -1891,15 +1891,15 @@
     }
  
     public void m_5617_(ServerboundClientInformationPacket p_9845_) {
-@@ -1658,7 +_,55 @@
+@@ -1658,7 +_,59 @@
        this.f_9743_.m_9156_(p_9845_);
     }
  
 +   // CraftBukkit start
 +   private static final ResourceLocation CUSTOM_REGISTER = new ResourceLocation("register");
 +   private static final ResourceLocation CUSTOM_UNREGISTER = new ResourceLocation("unregister");
-    public void m_7423_(ServerboundCustomPayloadPacket p_9860_) {
-+      PacketUtils.m_131359_(p_9860_, this, this.f_9743_.m_284548_());
++   // Mohist start
++   public void handleCustomPayloadMohist(final ServerboundCustomPayloadPacket p_9860_) {
 +      var readerIndex = p_9860_.f_133981_.readerIndex();
 +      var buf = new byte[p_9860_.f_133981_.readableBytes()];
 +      p_9860_.f_133981_.readBytes(buf);
@@ -1943,6 +1943,10 @@
 +            }
 +         }
 +      });
++   }
++   // Mohist end
+    public void m_7423_(ServerboundCustomPayloadPacket p_9860_) {
++      PacketUtils.m_131359_(p_9860_, this, this.f_9743_.m_284548_());
 +      net.minecraftforge.network.NetworkHooks.onCustomPayload(p_9860_, this.f_9742_);
     }
  
