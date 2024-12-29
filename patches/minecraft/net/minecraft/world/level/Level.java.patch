@@ -407,12 +407,7 @@
        if (!this.f_151503_.isEmpty()) {
           this.f_151512_.addAll(this.f_151503_);
           this.f_151503_.clear();
-@@ -420,16 +_,17 @@
- 
-       this.f_151504_ = false;
-       profilerfiller.m_7238_();
-+      spigotConfig.currentPrimedTnt = 0; // Spigot
-    }
+@@ -424,12 +_,12 @@
  
     public <T extends Entity> void m_46653_(Consumer<T> p_46654_, T p_46655_) {
        try {

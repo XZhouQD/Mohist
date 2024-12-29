@@ -357,6 +357,14 @@
                       profilerfiller.m_7238_();
                    }
                 }
+@@ -345,6 +_,7 @@
+          });
+          profilerfiller.m_7238_();
+          this.m_46463_();
++         spigotConfig.currentPrimedTnt = 0; // Spigot // Mohist move form Level#tickBlockEntities
+       }
+ 
+       profilerfiller.m_6180_("entityManagement");
 @@ -401,7 +_,7 @@
        int j = chunkpos.m_45605_();
        ProfilerFiller profilerfiller = this.m_46473_();
