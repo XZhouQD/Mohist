@@ -211,13 +211,14 @@ public class NetworkHooks
         if (c == null) return;
         // Mohist start - Custom Container compatible with mods
         c.setTitle(containerSupplier.getDisplayName());
+        c.containerOwner = player;
         if (c.getBukkitView() == null) {
             org.bukkit.inventory.Inventory inventory = new CraftInventory(new MohistModsInventory(c, player));
             inventory.getType().setMods(true);
             c.bukkitView = new CraftInventoryView(player.getBukkitEntity(), inventory, c);
         }
-        c.containerOwner = player;
         c = CraftEventFactory.callInventoryOpenEvent(player, c);
+        if (c == null) return;
         // Mohist end
         MenuType<?> type = c.getType();
         PlayMessages.OpenContainer msg = new PlayMessages.OpenContainer(type, openContainerId, c.getTitle(), output);

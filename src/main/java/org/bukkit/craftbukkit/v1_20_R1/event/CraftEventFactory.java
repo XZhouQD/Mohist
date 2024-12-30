@@ -1525,6 +1525,10 @@ public class CraftEventFactory {
     }
 
     public static void handleInventoryCloseEvent(net.minecraft.world.entity.player.Player human) {
+        // Mohist start
+        human.inventoryMenu.containerOwner = human;
+        human.containerMenu.containerOwner = human;
+        // Mohist end
         InventoryCloseEvent event = new InventoryCloseEvent(human.containerMenu.getBukkitView());
         human.level.getCraftServer().getPluginManager().callEvent(event);
         human.containerMenu.transferTo(human.inventoryMenu, human.getBukkitEntity());

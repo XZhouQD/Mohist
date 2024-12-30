@@ -71,7 +71,8 @@ public class MohistMCStart {
             );
             if (i18n.isCN()) {
                 System.out.printf("官方交流QQ群: 158638%n");
-                System.out.printf("国内官网已开放: https://www.mohistmc.cn/%n");
+                System.out.printf("官网(中国)已开放: https://www.mohistmc.cn/%n");
+                System.out.printf("爱发电: https://afdian.com/a/MohistMC%n");
             }
         }
 

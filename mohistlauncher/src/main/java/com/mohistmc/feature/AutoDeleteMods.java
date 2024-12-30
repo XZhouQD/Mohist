@@ -22,6 +22,9 @@ public class AutoDeleteMods {
             "net.irisshaders.iris.Iris" /*oculus*/,
             "com.nakuring.enhanced_boss_bars.EnhancedBossBars" /*enhanced_boss_bars*/,
             "me.flashyreese.mods.sodiumextra.EmbeddiumExtraMod" /*embeddium_extra*/,
+            "com.nekotune.battlemusic.BattleMusic" /*BattleMusic*/,
+            "com.zergatul.freecam.ModMain" /*freecam*/,
+            "io.github.reserveword.imblocker.IMBlocker" /*IMBlocker*/,
             "optifine.Differ" /*OptiFine*/));
 
     public static void jar() throws Exception {
