@@ -1525,11 +1525,15 @@ public class CraftEventFactory {
     }
 
     public static void handleInventoryCloseEvent(net.minecraft.world.entity.player.Player human) {
-        // Mohist start
         human.inventoryMenu.containerOwner = human;
         human.containerMenu.containerOwner = human;
-        // Mohist end
-        InventoryCloseEvent event = new InventoryCloseEvent(human.containerMenu.getBukkitView());
+        InventoryView view = human.containerMenu.getBukkitView();
+        if (view == null) {
+            org.bukkit.inventory.Inventory inventory = new CraftInventory(new MohistModsInventory(human.containerMenu, human));
+            inventory.getType().setMods(true);
+            view = new CraftInventoryView(human.getBukkitEntity(), inventory, human.containerMenu);
+        }
+        InventoryCloseEvent event = new InventoryCloseEvent(view);
         human.level.getCraftServer().getPluginManager().callEvent(event);
         human.containerMenu.transferTo(human.inventoryMenu, human.getBukkitEntity());
     }

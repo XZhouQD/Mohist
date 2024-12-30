@@ -49,7 +49,7 @@ net/minecraft/server/1.20.1/server-1.20.1.jar|308f4d8ff0c2019bccba141616e10c32|4
 net/minecraft/server/1.20.1-20230612.114412/server-1.20.1-20230612.114412-mappings.txt|8fbaeb28c33dee3cc751d29c461aea0b|6154194|false
 net/minecraftforge/accesstransformers/8.0.4/accesstransformers-8.0.4.jar|f0d3533f9437ba4428eaee9f28f7ecd9|77756|false
 net/minecraftforge/binarypatcher/1.1.1/binarypatcher-1.1.1.jar|499620533414c0aa11c105615f3cf7f6|21892|true
-net/minecraftforge/coremods/5.2.1/coremods-5.2.1.jar|5bbacebd88d19aa6ce9f7563d1aac3f5|31321|false
+net/minecraftforge/coremods/5.2.4/coremods-5.2.4.jar|5295505357ba9b98450c5e3121f82191|31872|false
 net/minecraftforge/ForgeAutoRenamingTool/0.1.22/ForgeAutoRenamingTool-0.1.22-all.jar|bb899ef4ba6e95b45c2e10eed4d126aa|509933|false
 net/minecraftforge/forgespi/7.0.1/forgespi-7.0.1.jar|bd34d20287dc95201fe9475a8bbc2540|29831|false
 net/minecraftforge/installertools/1.4.1/installertools-1.4.1.jar|6330672c5b8a9a955db6e0f5c0a94e95|87401|true
