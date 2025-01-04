@@ -1765,7 +1765,7 @@
 +               try {
 +                  String channels = new String(buf, StandardCharsets.UTF_8);
 +                  for (String channel : channels.split("\0")) {
-+                     if (!StringUtils.isNullOrEmpty(channel)) {
++                     if (!StringUtil.m_14408_(channel)) {
 +                        getCraftPlayer().addChannel(channel);
 +                     }
 +                  }
@@ -1777,7 +1777,7 @@
 +               try {
 +                  String channels = new String(buf, StandardCharsets.UTF_8);
 +                  for (String channel : channels.split("\0")) {
-+                     if (!StringUtils.isNullOrEmpty(channel)) {
++                     if (!StringUtil.m_14408_(channel)) {
 +                        getCraftPlayer().removeChannel(channel);
 +                     }
 +                  }
