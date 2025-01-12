@@ -149,7 +149,7 @@
        servergamepacketlistenerimpl.m_9829_(new ClientboundUpdateRecipesPacket(this.f_11195_.m_129894_().m_44051_()));
        servergamepacketlistenerimpl.m_9829_(new ClientboundUpdateTagsPacket(TagNetworkSerialization.m_245799_(this.f_243858_)));
        this.m_11289_(p_11263_);
-@@ -197,20 +_,72 @@
+@@ -197,20 +_,71 @@
           mutablecomponent = Component.m_237110_("multiplayer.player.joined.renamed", p_11263_.m_5446_(), s);
        }
  
@@ -180,7 +180,7 @@
 +      PlayerJoinEvent playerJoinEvent = new PlayerJoinEvent(bukkitPlayer, joinMessage);
 +      cserver.getPluginManager().callEvent(playerJoinEvent);
 +
-+      if (!p_11263_.f_8906_.f_9742_.m_129536_()) {
++      if (!p_11263_.f_8906_.m_6198_()) {
 +         return;
 +      }
 +
@@ -197,7 +197,6 @@
 +      ClientboundPlayerInfoUpdatePacket packet = ClientboundPlayerInfoUpdatePacket.m_247122_(List.of(p_11263_));
 +
 +      for (ServerPlayer player : this.f_11196_) {
-+
 +         if (player.getBukkitEntity().canSee(bukkitPlayer)) {
 +            player.f_8906_.m_9829_(packet);
 +         }
