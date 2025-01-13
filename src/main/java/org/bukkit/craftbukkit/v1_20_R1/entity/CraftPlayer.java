@@ -1720,7 +1720,12 @@ public class CraftPlayer extends CraftHumanEntity implements Player {
 
     @Override
     public void setResourcePack(String url) {
-        setResourcePack(url);
+        setResourcePack(url, null);
+    }
+
+    @Override
+    public void setResourcePack(String url, byte[] hash) {
+        setResourcePack(url, hash, false);
     }
 
     @Override
@@ -1744,15 +1749,6 @@ public class CraftPlayer extends CraftHumanEntity implements Player {
         } else {
             getHandle().sendTexturePack(url, "", force, CraftChatMessage.fromStringOrNull(prompt, true));
         }
-    }
-
-    @Override
-    public void setResourcePack(String url, byte[] hash) {
-        Validate.notNull(url, "Resource pack URL cannot be null");
-        Validate.notNull(hash, "Resource pack hash cannot be null");
-        Validate.isTrue(hash.length == 20, "Resource pack hash should be 20 bytes long but was " + hash.length);
-
-        getHandle().sendTexturePack(url, BaseEncoding.base16().lowerCase().encode(hash), false, null);
     }
 
     public void addChannel(String channel) {
