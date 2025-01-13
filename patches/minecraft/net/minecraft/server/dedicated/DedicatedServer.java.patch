@@ -215,7 +215,7 @@
              Thread thread1 = new Thread(new ServerWatchdog(this));
              thread1.setUncaughtExceptionHandler(new DefaultUncaughtExceptionHandlerWithName(f_139598_));
              thread1.setName("Server Watchdog");
-@@ -188,7 +_,14 @@
+@@ -188,7 +_,13 @@
              f_139598_.info("JMX monitoring enabled");
           }
  
@@ -224,7 +224,6 @@
 +            this.dediLanPinger = new net.minecraft.client.server.LanServerPinger(this.m_129916_(), String.valueOf(this.m_7448_()));
 +            this.dediLanPinger.start();
 +         }
-+         if (MohistMC.i18n.isCN()) f_139598_.info(ColorsAPI.of("&b小小墨提醒您: Mohist 核心已装载完毕，有任何问题可以加官方群 [158638] 进行反馈"));
 +         Metrics.MohistMetrics.startMetrics();
 +         WatchMohist.start();
 +         return net.minecraftforge.server.ServerLifecycleHooks.handleServerStarting(this);
